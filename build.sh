@@ -1,3 +1,3 @@
 #!/bin/sh -e
 
-dmd *.d detail/*.d
+dmd -g -unittest deject/*.d deject/detail/*.d
