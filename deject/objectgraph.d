@@ -6,6 +6,8 @@ import deject.detail.bindingkey;
 import deject.detail.bindingmap;
 import deject.detail.linker;
 
+import std.stdio;
+
 class ObjectGraph {
   this(BindingModule[] bindingModules ...) {
     BindingMap bindingMap;
@@ -26,8 +28,8 @@ class ObjectGraph {
 
 unittest {
   auto testModule = new class BindingModule {
-    void addBindingsToMap(BindingMap bindingMap) {
-      bindingMap[BindingKey(typeid(int))] = new class Binding!(int) {
+    void addBindingsToMap(ref BindingMap bindingMap) {
+      bindingMap[BindingKey(typeid(int))] = new class Binding!int {
         int get() { return 42; }
         void attach(Linker linker) { }
       };
@@ -35,5 +37,5 @@ unittest {
   };
 
   auto objectGraph = new ObjectGraph(testModule);
-  assert(objectGraph.get!(int) == 42);
+  assert(objectGraph.get!int == 42);
 }

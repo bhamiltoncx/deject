@@ -1,3 +1,7 @@
 #!/bin/sh -e
 
-dmd -g -unittest deject/*.d deject/detail/*.d
+if [ ! -d bin ] ; then
+  mkdir -p bin
+fi
+
+dmd -g -unittest -odbin -ofbin/deject deject/*.d deject/detail/*.d

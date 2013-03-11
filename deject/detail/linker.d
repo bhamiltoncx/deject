@@ -4,6 +4,9 @@ import deject.detail.binding;
 import deject.detail.bindingkey;
 import deject.detail.bindingmap;
 
+import std.conv;
+import std.stdio;
+
 class Linker {
   this(BindingMap newBindingMap) {
     bindingMap = newBindingMap;
@@ -12,13 +15,12 @@ class Linker {
   Binding!T requestBinding(T)() {
     BindingKey key = { typeid(T) };
     auto variant = bindingMap[key];
-    assert(variant.type == key.typeInfo);
-    auto binding = variant.peek!(Binding!T);
+    auto binding = variant.get!(Binding!T);
     if (key !in linkedBindings) {
       binding.attach(this);
       linkedBindings[key] = true;
     }
-    return *binding;
+    return binding;
   }
 
   private BindingMap bindingMap;
