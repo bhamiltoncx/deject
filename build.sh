@@ -4,4 +4,4 @@ if [ ! -d bin ] ; then
   mkdir -p bin
 fi
 
-dmd -g -unittest -odbin -ofbin/deject deject/*.d deject/detail/*.d
+dmd -g -unittest -odbin -ofbin/deject_test main.d deject/*.d deject/detail/*.d
