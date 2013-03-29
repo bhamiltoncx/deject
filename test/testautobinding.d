@@ -11,12 +11,14 @@ class TestAutobinding {
 
 unittest {
   auto bindingsStr = generateBindingsForModules!(deject.test.testmodule);
-  assert(bindingsStr == "MyClassFoo get(MyClassFoo)() {\n  return new MyClassFoo();\n}\n");
+  assert(bindingsStr ==
+         "private deject.test.testmodule.MyClassFoo getImpl(" ~
+         "T:deject.test.testmodule.MyClassFoo)(T t) {\n"~
+         "  return new deject.test.testmodule.MyClassFoo();\n}\n");
 }
 
 unittest {
   auto t = new TestAutobinding();
-  // XXX: Why does this not compile?
-  //auto foo = t.get!MyClassFoo;
-  //assert(foo.getValue() == 23);
+  auto foo = t.getImpl!(MyClassFoo)(null);
+  assert(foo.getValue() == 23);
 }

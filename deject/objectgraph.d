@@ -12,8 +12,6 @@ import std.stdio;
 class ObjectGraph(DModule...) {
   static BindingMap compileTimeBindingMap;
 
-  mixin AutoBindingsForModules!(DModule);
-
   this(BindingModule[] bindingModules ...) {
     BindingMap bindingMap;
 
@@ -25,8 +23,14 @@ class ObjectGraph(DModule...) {
   }
 
   T get(T)() {
+    return getImpl!(T)(cast(T)null);
+  }
+
+  private T getImpl(T)(T t) {
     return linker.requestBinding!T.get();
   }
+
+  mixin AutoBindingsForModules!(DModule);
 
   private Linker linker;
 }

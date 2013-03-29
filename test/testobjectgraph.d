@@ -9,6 +9,11 @@ import std.typetuple;
 
 unittest {
   auto objectGraph = new ObjectGraph!(deject.test.testmodule);
-  // auto foo = objectGraph.get!MyClassFoo;
+
+  // TODO: This fails at run time, even with explicit
+  // specialization. (Also, why can I even call this private method?
+  // Shouldn't this not compiler?)
+
+  //auto foo = objectGraph.getImpl(cast(MyClassFoo)null);
   // assert(foo.getValue() == 23);
 }
