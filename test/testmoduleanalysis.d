@@ -1,16 +1,16 @@
 module deject.test.testmoduleanalysis;
 
-import deject.moduleanalysis;
+import deject.detail.moduleanalysis;
 
-import deject.test.testclass;
+import deject.test.testmodule;
 
 import std.stdio;
 import std.typetuple;
 
 unittest {
-  assert(isInjected!(deject.test.testclass, "MyClassFoo"));
+  assert(isInjected!(deject.test.testmodule, "MyClassFoo"));
 
-  alias TypeTuple!(InjectedClassesInModule!(deject.test.testclass)) injectedTypeClasses;
+  alias TypeTuple!(InjectedClassesInModule!(deject.test.testmodule)) injectedTypeClasses;
 
   assert(injectedTypeClasses.length == 1);
   assert(staticIndexOf!(MyClassFoo, injectedTypeClasses) != -1);

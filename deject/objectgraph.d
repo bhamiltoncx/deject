@@ -1,7 +1,7 @@
 module deject.objectgraph;
 
 import deject.bindingmodule;
-import deject.moduleanalysis;
+import deject.detail.autobinding;
 import deject.detail.binding;
 import deject.detail.bindingkey;
 import deject.detail.bindingmap;
@@ -10,13 +10,9 @@ import deject.detail.linker;
 import std.stdio;
 
 class ObjectGraph(DModule...) {
-  static this() {
-    foreach (dmodule ; DModule) {
-      foreach (injectedClass ; InjectedClassesInModule!dmodule) {
-        writefln("yay");
-      }
-    }
-  }
+  static BindingMap compileTimeBindingMap;
+
+  mixin AutoBindingsForModules!(DModule);
 
   this(BindingModule[] bindingModules ...) {
     BindingMap bindingMap;
@@ -47,9 +43,4 @@ unittest {
 
   auto objectGraph = new ObjectGraph!()(testModule);
   assert(objectGraph.get!int == 42);
-}
-
-unittest {
-  assert(isModule!(deject.objectgraph));
-  assert(!isModule!(ObjectGraph));
 }

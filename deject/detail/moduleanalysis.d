@@ -1,4 +1,4 @@
-module deject.moduleanalysis;
+module deject.detail.moduleanalysis;
 
 import std.algorithm;
 import std.traits;
@@ -42,4 +42,7 @@ template InjectedClassesInModule(alias T) {
     InjectedClassesInModule;
 }
 
-// Unit tests live in deject.test.testmoduleanalysis.
+unittest {
+  assert(isModule!(deject.attributes));
+  assert(!isModule!(isModule));
+}
