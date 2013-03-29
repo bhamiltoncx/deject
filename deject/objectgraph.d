@@ -1,11 +1,11 @@
 module deject.objectgraph;
 
 import deject.bindingmodule;
-import deject.detail.autobinding;
 import deject.detail.binding;
 import deject.detail.bindingkey;
 import deject.detail.bindingmap;
 import deject.detail.linker;
+import deject.detail.objectgraphgetimpl;
 
 import std.stdio;
 
@@ -23,14 +23,12 @@ class ObjectGraph(DModule...) {
   }
 
   T get(T)() {
+    // To allow for template specialization, we pass in a dummy value
+    // of type T.
     return getImpl!(T)(cast(T)null);
   }
 
-  private T getImpl(T)(T t) {
-    return linker.requestBinding!T.get();
-  }
-
-  mixin AutoBindingsForModules!(DModule);
+  mixin ObjectGraphGetImplForModules!(DModule);
 
   private Linker linker;
 }

@@ -12,8 +12,8 @@ unittest {
 
   // TODO: This fails at run time, even with explicit
   // specialization. (Also, why can I even call this private method?
-  // Shouldn't this not compiler?)
+  // Shouldn't this not compile?)
 
-  //auto foo = objectGraph.getImpl(cast(MyClassFoo)null);
-  // assert(foo.getValue() == 23);
+  auto foo = objectGraph.getImpl(cast(MyClassFoo)null);
+  assert(foo.getValue() == 23);
 }
