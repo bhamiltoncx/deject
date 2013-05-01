@@ -45,36 +45,36 @@
 
 <section class="slide">
 <h2>If you take away one thing from this talk, make it this:</h2>
-<h3 class="slide">Writing tests can be easy, if you separate out your dependencies.</h3>
+<h3>Writing tests can be easy, if you separate out your dependencies.</h3>
 </section>
 
 <section class="slide">
 <h2>Why write testable code?</h2>
-<h3 class="slide">Making your code testable lets us make new and interesting mistakes</h3>
-<h4 class="slide">(instead of those same old boring mistakes)</h4>
+<h3>Making your code testable lets us make new and interesting mistakes</h3>
+<h4>(instead of those same old boring mistakes)</h4>
 <p />
-<h3 class="slide">Don't live in fear of touching code you didn't write</h3>
-<h3 class="slide">And don't live in fear of touching code you did write&hellip;</h3>
-<h4 class="slide">(6 months ago)</h4>
+<h3>Don't live in fear of touching code you didn't write</h3>
+<h3>And don't live in fear of touching code you did write&hellip;</h3>
+<h4>(6 months ago)</h4>
 </section>
 
 <section class="slide">
 <h2>Let's Talk Testing</h2>
 <h3>When describing code, the word <i>unit</i> might bring to mind:</h3>
 <ul>
-<li class="slide">A single <i>function</i></li>
-<li class="slide">A <i>class</i></li>
-<li class="slide">A <i>module</i> (in D, a single file)</li>
+<li>A single <i>function</i></li>
+<li>A <i>class</i></li>
+<li>A <i>module</i> (in D, a single file)</li>
 </ul>
-<h4 class="slide">Keeping your personal definition of "unit" small is the key to both comprehending and testing software.</h4>
+<h4>Keeping your personal definition of "unit" small is the key to both comprehending and testing software.</h4>
 </section>
 
 <section class="slide">
 <h2>Basics of Unit Testing in D</h2>
-<h3 class="slide">D is the first major programming language with unit testing built in.</h3>
-<h3 class="slide">Any code in a <tt>unittest { ... }</tt> block is executed before <tt>main()</tt> when the program is compiled with <tt>dmd -unittest</tt></h3>
-<h3 class="slide">Unit tests contain <i>logic</i> and <i><tt>assert</tt></i> statements.</h3>
-<h4 class="slide">What does a basic unit test look like?</h4>
+<h3>D is the first major programming language with unit testing built in.</h3>
+<h3>Any code in a <tt>unittest { ... }</tt> block is executed before <tt>main()</tt> when the program is compiled with <tt>dmd -unittest</tt></h3>
+<h3>Unit tests contain <i>logic</i> and <i><tt>assert</tt></i> statements.</h3>
+<h4>What does a basic unit test look like?</h4>
 </section>
 
 <section class="slide">
@@ -102,25 +102,25 @@ unittest {
 <section class="slide">
 <h2>Other kinds of tests</h2>
 <h3>Integration tests</h3>
-<h4 class="slide">These exercise <i>multiple units</i> in concert.</h4>
-<h4 class="slide">Integration tests ensure that all your units are glued together correctly.</h4>
-<h4 class="slide">They have larger surface area, so they fail more often and more mysteriously when a unit misbehaves.</h4>
+<h4>These exercise <i>multiple units</i> in concert.</h4>
+<h4>Integration tests ensure that all your units are glued together correctly.</h4>
+<h4>They have larger surface area, so they fail more often and more mysteriously when a unit misbehaves.</h4>
 </section>
 
 <section class="slide">
 <h2>Other kinds of tests, cont.</h2>
 <h3><i>End-to-end</i> tests</h3>
-<h4 class="slide">These exercise <i>the entire process</i> from start to finish.</h4>
-<h4 class="slide">These are great for smoke tests to make sure a build isn't dead on arrival.</h4>
-<h4 class="slide">But&hellip; they get flaky even quicker than integration tests.</h4>
-<h4 class="slide">Writing and maintaining end-to-end tests is <i>expensive</i> and <i>time-consuming</i>.</h4>
+<h4>These exercise <i>the entire process</i> from start to finish.</h4>
+<h4>These are great for smoke tests to make sure a build isn't dead on arrival.</h4>
+<h4>But&hellip; they get flaky even quicker than integration tests.</h4>
+<h4>Writing and maintaining end-to-end tests is <i>expensive</i> and <i>time-consuming</i>.</h4>
 </section>
 
 <section class="slide">
 <h2>Isolating dependencies for unit tests</h2>
-<h3 class="slide">To make code testable, we need to isolate the actual code from its dependencies.</h3>
-<h3 class="slide">"Constructor injection" requires all the dependencies of a unit to be passed to its constructor.</h3>
-<h4 class="slide">Let's look at a flaky test to see why this is useful.</h4>
+<h3>To make code testable, we need to isolate the actual code from its dependencies.</h3>
+<h3>"Constructor injection" requires all the dependencies of a unit to be passed to its constructor.</h3>
+<h4>Let's look at a flaky test to see why this is useful.</h4>
 </section>
 
 <section class="slide">
@@ -148,11 +148,11 @@ unittest {
 </code></pre>
 
 <h2>This is a flaky test. It will fail:</h2>
-<h3 class="slide">When the network is down</h3>
-<h3 class="slide">If someone registers <tt>qlang.org</tt></h3>
-<h3 class="slide">When the filesystem is full or read-only</h3>
-<h3 class="slide">When I hit Control-C after waiting 30 seconds for the test to complete</h3>
-<pre class="slide"><code data-language="shell">% time rdmd --main -unittest counterexample.d
+<h3>When the network is down</h3>
+<h3>If someone registers <tt>qlang.org</tt></h3>
+<h3>When the filesystem is full or read-only</h3>
+<h3>When I hit Control-C after waiting 30 seconds for the test to complete</h3>
+<pre><code data-language="shell">% time rdmd --main -unittest counterexample.d
 30.838 secs</code></pre>
 <hr />
 </section>
@@ -187,9 +187,9 @@ class HostChecker {
 <h2>What changed here?</h2>
 
 <ul>
-<li class="slide">Pass dependencies from above to constructor</h3>
-<li class="slide">Clearly define seams to stitch together logic and dependencies</li>
-<li class="slide">Avoid static methods and globals</h3>
+<li>Pass dependencies from above to constructor</h3>
+<li>Clearly define seams to stitch together logic and dependencies</li>
+<li>Avoid static methods and globals</h3>
 </ul>
 </section>
 
@@ -244,19 +244,19 @@ class HostChecker {
 <section class="slide">
 <h2>The Good, The Bad, and the Dejected</h2>
 <ul>
-<li class="slide">The good</li>
+<li>The good</li>
 <ul>
-<li class="slide">Writing code this way makes it simple to test</li>
+<li>Writing code this way makes it simple to test</li>
 </ul>
-<li class="slide">The bad</li>
+<li>The bad</li>
 <ul>
-<li class="slide">Calling the constructor with all its dependencies is annoying and requires clients change any time the dependencies change</li>
+<li>Calling the constructor with all its dependencies is annoying and requires clients change any time the dependencies change</li>
 </ul>
-<li class="slide">The dejected</li>
+<li>The dejected</li>
 <ul>
-<li class="slide">D is a modern programming language: can't it take care of these details?</li>
+<li>D is a modern programming language: can't it take care of these details?</li>
 </ul>
-<li class="slide">Introducing <tt>deject</tt>, dependency injection for D</li>
+<li>Introducing <tt>deject</tt>, dependency injection for D</li>
 </ul>
 </section>
 
@@ -270,17 +270,17 @@ class HostChecker {
 <section class="slide">
 <h2>Runtime dependency injection</h2>
 
-<h3 class="slide"><tt>BindingModule</tt>s define map of (<tt>TypeInfo</tt> &rarr; <tt>Binding</tt>) pairs</h3>
-<h3 class="slide"><tt>ObjectGraph</tt> analyzes graph of dependencies and uses <tt>Linker</tt> to find and cache dependencies of <tt>Binding</tt>s</h3>
-<h3 class="slide">Manages object lifetime for singletons and other objects with scoped lifetime</h3>
+<h3><tt>BindingModule</tt>s define map of (<tt>TypeInfo</tt> &rarr; <tt>Binding</tt>) pairs</h3>
+<h3><tt>ObjectGraph</tt> analyzes graph of dependencies and uses <tt>Linker</tt> to find and cache dependencies of <tt>Binding</tt>s</h3>
+<h3>Manages object lifetime for singletons and other objects with scoped lifetime</h3>
 </section>
 
 <section class="slide">
 <h2>Compile-time dependency injection</h2>
 
-<h3 class="slide">D's compile-time introspection lets us build the object graph at compile time</h3>
-<h3 class="slide">Looks for <tt>@Inject</tt> attribute to denote classes with dependencies managed by object graph</h3>
-<h3 class="slide">Emits D mixins to define <tt>ObjectGraph.get!T</tt> to construct injected type <tt>T</tt></h3>
+<h3>D's compile-time introspection lets us build the object graph at compile time</h3>
+<h3>Looks for <tt>@Inject</tt> attribute to denote classes with dependencies managed by object graph</h3>
+<h3>Emits D mixins to define <tt>ObjectGraph.get!T</tt> to construct injected type <tt>T</tt></h3>
 </section>
 
 <section class="slide">
@@ -305,10 +305,10 @@ class HostChecker {
 
 <section class="slide">
 <h2>Wrapping it up</h2>
-<h3 class="slide">Use pass from above to separate dependencies from your code</h3>
-<h3 class="slide">Use mocks to control behavior of dependencies in tests</h3>
-<h3 class="slide">Grab the source: <a href="https://github.com/bgertzfield/deject">github.com/bgertzfield/deject</a></h3>
-<h4 class="slide">Questions?</h4>
+<h3>Use pass from above to separate dependencies from your code</h3>
+<h3>Use mocks to control behavior of dependencies in tests</h3>
+<h3>Grab the source: <a href="https://github.com/bgertzfield/deject">github.com/bgertzfield/deject</a></h3>
+<h4>Questions?</h4>
 </section>
 
 <!-- End slides. -->
