@@ -25,7 +25,7 @@
 	<link rel="stylesheet" href="themes/transition/fade.css">
 
         <!-- Rainbow code highlight style. -->
-        <link href="rainbow/themes/github.css" rel="stylesheet" type="text/css">
+        <link href="rainbow/themes/solarized-dark.css" rel="stylesheet" type="text/css">
 
 	<!-- Required Modernizr file -->
 	<script src="modernizr.custom.js"></script>
@@ -286,7 +286,8 @@ class HostChecker {
 <section class="slide">
 <h2>One small change to make that code injected</h2>
 
-<pre><code data-language="d">import deject.attributes;
+<pre><code data-language="d">module foo.hostchecker;
+import deject.attributes;
 
 @Inject
 class HostChecker {
@@ -299,6 +300,21 @@ class HostChecker {
   }
 
   // ...
+}
+</code></pre>
+</section>
+
+<section class="slide">
+<h2>Turtles All the Way Down</h2>
+
+<pre><code data-language="d">import foo.hostchecker;
+import deject.objectgraph;
+import std.stdio;
+
+void main(string[] args) {
+  auto graph = new ObjectGraph!(foo.hostchecker);
+  auto hostChecker = graph.get!HostChecker;
+  hostChecker.checkHost(args[0]);
 }
 </code></pre>
 </section>
